@@ -49,7 +49,6 @@ void loop() {
   digitalWrite (VERDE1, HIGH); 
   digitalWrite (ROSSO2, HIGH);   
   delay (verdeHigh);
-
   lampeggia1();
   digitalWrite (VERDE1, LOW);
   digitalWrite (GIALLO1, HIGH);  
@@ -59,23 +58,19 @@ void loop() {
   digitalWrite (GIALLO2, LOW);   
   digitalWrite (ROSSO2, LOW);
   digitalWrite (ROSSO1, HIGH);   
-  digitalWrite (VERDE2, HIGH);
-  
-  delay (verdeHigh);
-  
+  digitalWrite (VERDE2, HIGH);  
+  delay (verdeHigh);  
   lampeggia2();
   digitalWrite (VERDE2, LOW);
-
   digitalWrite (GIALLO2, HIGH); 
   digitalWrite (GIALLO1, HIGH);
   digitalWrite (ROSSO1, HIGH); 
   delay (gialloHigh);
-  
   digitalWrite (GIALLO2, LOW);  
   digitalWrite (GIALLO1, LOW);   
   digitalWrite (ROSSO1, LOW);  
 }
-
+//lampeggio led verde 1
 void lampeggia1() {  
   for (int i = 0; i <= numLampeggi; i++){
     delay (tempoLampeggi);
@@ -84,7 +79,7 @@ void lampeggia1() {
     digitalWrite (VERDE1, HIGH);
   }
 }
-
+//lampeggio led verde 2
 void lampeggia2() {  
   for (int i = 0; i <= numLampeggi; i++){
     delay (tempoLampeggi);
