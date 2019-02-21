@@ -10,22 +10,26 @@ int tempoLampeggi = 0;
 int verdeHigh = 0;
 int gialloHigh = 0;
 
+
 void setup() {
   // put your setup code here, to run once:
-  pinMode (VERDE1, OUTPUT);    //VERDE
+  pinMode (VERDE1, OUTPUT);     //VERDE
   pinMode (GIALLO1, OUTPUT);    //GIALLO
   pinMode (ROSSO1, OUTPUT);     //ROSSO
   
   pinMode (VERDE2, OUTPUT);     //VERDE
-  pinMode (GIALLO2, OUTPUT);     //GIALLO
+  pinMode (GIALLO2, OUTPUT);    //GIALLO
   pinMode (ROSSO2, OUTPUT);     //ROSSO
-
+  
   Serial.begin(9600);
+
+  String domanda1 = "Quanti lampeggi deve fare il verde?";
+  input(numLampeggi, domanda1);
   
   // input lampeggi verdi
-  Serial.println("Quanti lampeggi verdi?");
+  /*Serial.println("Quanti lampeggi deve fare il verde?");
   while(Serial.available() == 0){};
-  numLampeggi = Serial.readString().toInt();
+  numLampeggi = Serial.readString().toInt();*/
 
   // input durata lampeggi
   Serial.println("Quanto durano i lampeggi?");
@@ -46,10 +50,13 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+
+  //semaforo1();
+  
   digitalWrite (VERDE1, HIGH); 
   digitalWrite (ROSSO2, HIGH);   
   delay (verdeHigh);
-  lampeggia1();
+  lampeggia(VERDE1);
   digitalWrite (VERDE1, LOW);
   digitalWrite (GIALLO1, HIGH);  
   digitalWrite (GIALLO2, HIGH);   
@@ -60,7 +67,7 @@ void loop() {
   digitalWrite (ROSSO1, HIGH);   
   digitalWrite (VERDE2, HIGH);  
   delay (verdeHigh);  
-  lampeggia2();
+  lampeggia(VERDE2);
   digitalWrite (VERDE2, LOW);
   digitalWrite (GIALLO2, HIGH); 
   digitalWrite (GIALLO1, HIGH);
@@ -68,23 +75,38 @@ void loop() {
   delay (gialloHigh);
   digitalWrite (GIALLO2, LOW);  
   digitalWrite (GIALLO1, LOW);   
-  digitalWrite (ROSSO1, LOW);  
+  digitalWrite (ROSSO1, LOW); 
 }
-//lampeggio led verde 1
-void lampeggia1() {  
+//lampeggio led 
+void lampeggia(int led) {  
   for (int i = 0; i <= numLampeggi; i++){
     delay (tempoLampeggi);
-    digitalWrite (VERDE1, LOW);
+    digitalWrite (led, LOW);
     delay (tempoLampeggi);
-    digitalWrite (VERDE1, HIGH);
+    digitalWrite (led, HIGH);
   }
-}
-//lampeggio led verde 2
-void lampeggia2() {  
-  for (int i = 0; i <= numLampeggi; i++){
-    delay (tempoLampeggi);
-    digitalWrite (VERDE2, LOW);
-    delay (tempoLampeggi);
-    digitalWrite (VERDE2, HIGH);
+
+int input(int condizione, String domanda) {
+  Serial.println(domanda);
+  while(Serial.available() == 0){};
+  condizione = Serial.readString().toInt();
   }
+
+/*void semaforo1() {
+  digitalWrite (VERDE1, HIGH);
+  delay (verdeHigh);
+  lampeggia(VERDE1);
+  digitalWrite (VERDE1, LOW);
+  digitalWrite (GIALLO1, HIGH);
+  delay (gialloHigh);
+  digitalWrite (GIALLO1, LOW);
+  digitalWrite (ROSSO1, HIGH); 
+  delay (verdeHigh);
+  digitalWrite (GIALLO1, HIGH);
+  digitalWrite (ROSSO1, HIGH); 
+  delay (gialloHigh);
+  digitalWrite (GIALLO1, LOW);   
+  digitalWrite (ROSSO1, LOW);
+ }*/
+
 }
