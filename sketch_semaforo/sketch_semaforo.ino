@@ -1,58 +1,37 @@
-int VERDE1 = 12;
-int GIALLO1 = 10;
-int ROSSO1 = 8;
-int VERDE2 = 6;
+int VERDE1  = 12;
+int GIALLO1 = 10;       
+int ROSSO1  = 8;
+int VERDE2  = 6;
 int GIALLO2 = 4;
-int ROSSO2 = 2;
+int ROSSO2  = 2;   
 //variabili input
-int numLampeggi = 0;
+int numLampeggi   = 0;
 int tempoLampeggi = 0;
-int verdeHigh = 0;
-int gialloHigh = 0;
-
+int verdeHigh     = 0;
+int gialloHigh    = 0;
 
 void setup() {
-  // put your setup code here, to run once:
+  // put your setup code here, to run once: 
   pinMode (VERDE1, OUTPUT);     //VERDE
   pinMode (GIALLO1, OUTPUT);    //GIALLO
   pinMode (ROSSO1, OUTPUT);     //ROSSO
-  
   pinMode (VERDE2, OUTPUT);     //VERDE
   pinMode (GIALLO2, OUTPUT);    //GIALLO
   pinMode (ROSSO2, OUTPUT);     //ROSSO
   
   Serial.begin(9600);
-
-  String domanda1 = "Quanti lampeggi deve fare il verde?";
-  input(numLampeggi, domanda1);
-  
-  // input lampeggi verdi
-  /*Serial.println("Quanti lampeggi deve fare il verde?");
-  while(Serial.available() == 0){};
-  numLampeggi = Serial.readString().toInt();*/
-
-  // input durata lampeggi
-  Serial.println("Quanto durano i lampeggi?");
-  while(Serial.available() == 0){};
-  tempoLampeggi = Serial.readString().toInt();
-  
-  // input tempo accensione verde
-  Serial.println("Quanto resta acceso il verde?");
-  while(Serial.available() == 0){};
-  verdeHigh = Serial.readString().toInt();
-  
-  // input tempo accensione giallo
-  Serial.println("Quanto resta acceso il giallo?");
-  while(Serial.available() == 0){};
-  gialloHigh = Serial.readString().toInt();
-  
+  String domandaLamp      = "Quanti lampeggi deve fare il verde? (millisecondi)";
+  String domandaTempoLamp = "Quanto durano i lampeggi? (millisecondi)";
+  String domandaVerde     = "Quanto resta acceso il verde? (millisecondi)";
+  String domandaGiallo    = "Quanto resta acceso il giallo? (millisecondi)";
+  numLampeggi             = input(numLampeggi, domandaLamp);
+  tempoLampeggi           = input(tempoLampeggi, domandaTempoLamp);
+  verdeHigh               = input(verdeHigh, domandaVerde);
+  gialloHigh              = input(gialloHigh, domandaGiallo);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-
-  //semaforo1();
-  
   digitalWrite (VERDE1, HIGH); 
   digitalWrite (ROSSO2, HIGH);   
   delay (verdeHigh);
@@ -85,28 +64,11 @@ void lampeggia(int led) {
     delay (tempoLampeggi);
     digitalWrite (led, HIGH);
   }
-
+}
+//domande input
 int input(int condizione, String domanda) {
   Serial.println(domanda);
   while(Serial.available() == 0){};
   condizione = Serial.readString().toInt();
+  return condizione;
   }
-
-/*void semaforo1() {
-  digitalWrite (VERDE1, HIGH);
-  delay (verdeHigh);
-  lampeggia(VERDE1);
-  digitalWrite (VERDE1, LOW);
-  digitalWrite (GIALLO1, HIGH);
-  delay (gialloHigh);
-  digitalWrite (GIALLO1, LOW);
-  digitalWrite (ROSSO1, HIGH); 
-  delay (verdeHigh);
-  digitalWrite (GIALLO1, HIGH);
-  digitalWrite (ROSSO1, HIGH); 
-  delay (gialloHigh);
-  digitalWrite (GIALLO1, LOW);   
-  digitalWrite (ROSSO1, LOW);
- }*/
-
-}
